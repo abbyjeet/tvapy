@@ -14,16 +14,21 @@ class DR(basesource):
     from constants import misc, url as URL
 
     def GetNext(self, n: int, query: str):
-        if n == 0:  # Channels
-            return self.GetChannels()
-        elif n == 1:  # Shows
-            return self.GetShows(query)
-        elif n == 2:  # Episodes
-            return self.GetEpisodes(query)
-        elif n == 3:  # Sources
-            return self.GetSources(query)
-        else:  # Playdata
-            return self.GetPlayData(query)
+        try:
+            if n == 0:  # Channels
+                return self.GetChannels()
+            elif n == 1:  # Shows
+                return self.GetShows(query)
+            elif n == 2:  # Episodes
+                return self.GetEpisodes(query)
+            elif n == 3:  # Sources
+                return self.GetSources(query)
+            else:  # Playdata
+                return self.GetPlayData(query)
+        except Exception as e:
+            return {
+                "error": str(e)
+            }
 
     def GetChannels(self):
 
@@ -138,7 +143,7 @@ class DR(basesource):
 
     def GetPlayData(self, query: str = ""):
         query = query.replace("|view","")
-        
+
         import re
         rawHtml = self.requests.get(query).text
 
