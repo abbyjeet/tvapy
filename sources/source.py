@@ -3,9 +3,9 @@ from sources.basesource import basesource
 def source(key:str) -> basesource:
     from sources.z5 import Z5
     from sources.vk import VK
-    from sources.df import DF
+    from sources.dr import DR
     switch = {
-        "df":DF(), 
+        "dr":DR(), 
         "z5":Z5(), 
         "vk":VK()    
     }

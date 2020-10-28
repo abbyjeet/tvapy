@@ -1,48 +1,31 @@
 import sys
+
+from requests.models import Request
 sys.dont_write_bytecode = True
 
 import json
-from flask import Flask
+from flask import Flask, request
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+
+cors = CORS(app)
+app.config["CORS_HEADERS"] = "Content-Type"
 
 from constants import *
 from sources.source import source
 
-# @app.route('/test')
-# def test():
-#     import requests
-#     from bs4 import BeautifulSoup
-
-#     source = requests.get("https://coreyms.com").text
-#     soup = BeautifulSoup(source, 'lxml')
-#     headers = soup.select("article header")
-#     out = []
-#     for h in headers:
-#         out.append({
-#             "title":h.h2.text,
-#             "datetime":h.time.text
-#         })
-
-#     return json.dumps(out)
-
-@app.route('/')
-def sources():
+@app.route('/api/')
+@cross_origin()
+def getsources():
     return json.dumps(misc.Sources)
 
-@app.route('/<src>')
-@app.route('/<src>/<encurl>')
-def channels(src, encurl=""):
-    return json.dumps(source(src).GetChannels(encurl))
+@app.route('/api/<src>')
+@app.route('/api/<src>/<int:n>')
+@cross_origin()
+def next(src, n:int = 0):
+    q = request.args.get("q") if "q" in request.args.keys() else request.query_string.decode()
+    return json.dumps(source(src).GetNext(n,q))
 
-@app.route('/<src>/s/<encurl>')
-def shows(src, encurl):
-    return json.dumps(source(src).GetShows(encurl))
-    
-@app.route('/<src>/e/<encurl>')
-def episodes(src, encurl):
-    return json.dumps(source(src).GetEpisodes(encurl))
-
-@app.route('/<src>/p/<encurl>')
-def playdata(src, encurl):
-    return json.dumps(source(src).GetPlayData(encurl))
+if __name__ == '__main__':
+    app.run(debug=True,host='0.0.0.0')

@@ -13,14 +13,14 @@ Sources = {
     "TotalItems":3,
     "Items":[
         {
-            "Name": "DesiTvFlix",
-            "Link":"df/&p=1", 
-            "ImgSrc":"http://desitvflix.com/images/namelogo.png"
+            "Name": "DesiRulez",
+            "Link":"dr", 
+            "ImgSrc":"http://www.desirulez.cc/images/styles/HighlightBlue/style/logo.png"
         },
         {
             "Name": "Zee5",
             "Link":"z5", 
-            "ImgSrc": "https://upload.wikimedia.org/wikipedia/en/thumb/5/5a/Zee5-official-logo.jpeg/600px-Zee5-official-logo.jpeg"
+            "ImgSrc": "https://cdn.dnaindia.com/sites/default/files/styles/full/public/2019/07/26/759898-zee5.png"
         },
         {
             "Name": "Viki",

@@ -9,32 +9,42 @@ class VK(basesource):
     from constants import vkapi
     from constants import misc
 
-    def GetChannels(self, query: str = ""):
+    def GetNext(self, n: int, query: str):
+        if n==0: #Channels
+            return self.GetLanguages()
+        elif n==1: #Shows
+            return self.GetShows(query)
+        elif n==2: #Episodes
+            return self.GetEpisodes(query)
+        else: #Playdata
+            return self.GetPlayData(query)
+
+    def GetLanguages(self):
         shows = [
             {
                 "Name":"Korean",
                 "ImgSrc" :"https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/320px-Flag_of_South_Korea.svg.png",
-                "Link" :"vk/s/l=kr&p=1"
+                "Link" :"vk/1?l=kr&p=1"
             },
             {
                 "Name":"Japanese",
                 "ImgSrc" :"https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/320px-Flag_of_Japan.svg.png",
-                "Link" :"vk/s/l=jp&p=1"
+                "Link" :"vk/1?l=jp&p=1"
             },
             {
                 "Name":"Chinese",
                 "ImgSrc" :"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/320px-Flag_of_the_People%27s_Republic_of_China.svg.png",
-                "Link" :"vk/s/l=cn&p=1"
+                "Link" :"vk/1?l=cn&p=1"
             },
             {
                 "Name":"Taiwan",
                 "ImgSrc" :"https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Flag_of_the_Republic_of_China.svg/320px-Flag_of_the_Republic_of_China.svg.png",
-                "Link" :"vk/s/l=tw&p=1"
+                "Link" :"vk/1?l=tw&p=1"
             },
             {
                 "Name":"India",
                 "ImgSrc" :"https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/320px-Flag_of_India.svg.png",
-                "Link" :"vk/s/l=in&p=1"
+                "Link" :"vk/1?l=in&p=1"
             }
         ]
 
@@ -61,7 +71,7 @@ class VK(basesource):
             try:
                 return {
                     "Name": item["titles"]["en"],
-                    "Link": f"""vk/e/{item["id"]}&p=1""",
+                    "Link": f"""vk/2?{item["id"]}&p=1""",
                     "ImgSrc": item["images"]["poster"]["url"]
                 }
             except:
@@ -88,7 +98,7 @@ class VK(basesource):
         def mapItems(item):
             return {
                 "Name": f"""Episode {item["number"]}""",
-                "Link": f"""vk/p/{item["id"]}""",
+                "Link": f"""vk/3?{item["id"]}|view""",
                 "ImgSrc": item["images"]["poster"]["url"]
             }
 
@@ -100,11 +110,12 @@ class VK(basesource):
         }        
 
     def GetPlayData(self, query: str = ""):
+        query = query.replace("|view","")     
         getquery = self.vkapi.ApiEpisodeById(query)
 
-        print(f"query ==> {getquery}")
+        # print(f"query ==> {getquery}")
 
-        rawJson = self.requests.get(getquery)        
+        rawJson = self.requests.get(getquery)
         jsonData = rawJson.json()
 
         return {
@@ -129,13 +140,3 @@ class VK(basesource):
                         }
                     ],
                 }
-
-    def GetSource(self, query: str = ""):
-        return {
-            "Page": 0,
-            "ItemsPerPage": 0,
-            "TotalItems": 0,
-            "Items": [{
-                "Name":"Not Applicable"
-            }]
-        }
