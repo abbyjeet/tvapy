@@ -35,14 +35,19 @@ class Z5(basesource):
         }
 
     def GetNext(self, n: int, query: str):
-        if n == 0:  # Channels
-            return self.GetCategories()
-        elif n == 1:  # Shows
-            return self.GetShows(query)
-        elif n == 2:  # Episodes
-            return self.GetEpisodes(query)
-        else:  # Playdata
-            return self.GetPlayData(query)
+        try:
+            if n == 0:  # Channels
+                return self.GetCategories()
+            elif n == 1:  # Shows
+                return self.GetShows(query)
+            elif n == 2:  # Episodes
+                return self.GetEpisodes(query)
+            else:  # Playdata
+                return self.GetPlayData(query)
+        except Exception as e:
+            return {
+                "error": str(e)
+            }
 
     def GetCategories(self):
         shows = [

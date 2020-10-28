@@ -10,14 +10,19 @@ class VK(basesource):
     from constants import misc
 
     def GetNext(self, n: int, query: str):
-        if n==0: #Channels
-            return self.GetLanguages()
-        elif n==1: #Shows
-            return self.GetShows(query)
-        elif n==2: #Episodes
-            return self.GetEpisodes(query)
-        else: #Playdata
-            return self.GetPlayData(query)
+        try:
+            if n==0: #Channels
+                return self.GetLanguages()
+            elif n==1: #Shows
+                return self.GetShows(query)
+            elif n==2: #Episodes
+                return self.GetEpisodes(query)
+            else: #Playdata
+                return self.GetPlayData(query)
+        except Exception as e:
+            return {
+                "error": str(e)
+            }        
 
     def GetLanguages(self):
         shows = [
