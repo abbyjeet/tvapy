@@ -1,16 +1,16 @@
+from urllib.parse import unquote, unquote_plus
 from sources.basesource import basesource
 
 class VK(basesource):
     import json
     import requests
-    from urllib.parse import urlparse
-    from urllib.parse import parse_qs
+    from urllib.parse import urlparse, parse_qs
 
     from constants import vkapi
     from constants import misc
 
     def GetNext(self, n: int, query: str):
-        try:
+        try:            
             if n==0: #Channels
                 return self.GetLanguages()
             elif n==1: #Shows
@@ -115,19 +115,12 @@ class VK(basesource):
         }        
 
     def GetPlayData(self, query: str = ""):
-        print("===>before: ", query)
         query = query.replace("|view","")     
-        print("===>after: ", query)
 
         getquery = self.vkapi.ApiEpisodeById(query)    
 
-        print(f"query ==> {getquery}")
-
         rawJson = self.requests.get(getquery)
         jsonData = rawJson.json()
-
-        print("===>JSON: ", jsonData)
-
 
         return {
                     "Name": "",

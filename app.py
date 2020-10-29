@@ -14,6 +14,7 @@ app = Flask(__name__)
 
 from constants import *
 from sources.source import source
+from urllib.parse import unquote_plus
 
 @app.route('/api/')
 # @cross_origin()
@@ -25,7 +26,7 @@ def getsources():
 # @cross_origin()
 def next(src, n:int = 0):
     q = request.args.get("q") if "q" in request.args.keys() else request.query_string.decode()
-    return json.dumps(source(src).GetNext(n,q))
+    return json.dumps(source(src).GetNext(n,unquote_plus(q)))
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
