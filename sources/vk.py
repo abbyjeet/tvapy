@@ -115,13 +115,19 @@ class VK(basesource):
         }        
 
     def GetPlayData(self, query: str = ""):
+        print("===>before: ", query)
         query = query.replace("|view","")     
-        getquery = self.vkapi.ApiEpisodeById(query)
+        print("===>after: ", query)
 
-        # print(f"query ==> {getquery}")
+        getquery = self.vkapi.ApiEpisodeById(query)    
+
+        print(f"query ==> {getquery}")
 
         rawJson = self.requests.get(getquery)
         jsonData = rawJson.json()
+
+        print("===>JSON: ", jsonData)
+
 
         return {
                     "Name": "",

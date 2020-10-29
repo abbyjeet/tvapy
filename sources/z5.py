@@ -226,12 +226,3 @@ class Z5(basesource):
             }
 
         return playData
-
-        return {
-            "Page": 0,
-            "ItemsPerPage": 0,
-            "TotalItems": 0,
-            "Items": [{
-                "Name": "Not Applicable"
-            }]
-        }
