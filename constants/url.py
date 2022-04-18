@@ -8,6 +8,6 @@ Z5 = "https://www.zee5.com" #Not used, Uses API instead
 VK = "https://api.viki.io"
 MX = "https://www.mxplayer.in/"
 
-DR1 = "tv-41/"
+DR1 = "forumdisplay.php/41-Tv-Shows"
 DR2 = "tv-channels-911/"
 WS = "webseries-6450/"
