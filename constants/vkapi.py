@@ -1,7 +1,8 @@
 # from constants import *
 from constants import misc, url as URL
 
-SECRET = "bcb959661b3be4613c1d380b3c29981e8b1ed868762af37d8201f4f9ff73"
+# SECRET = "bcb959661b3be4613c1d380b3c29981e8b1ed868762af37d8201f4f9ff73"
+SECRET = "d96704b180208dbb2efa30fe44c48bd8690441af9f567ba8fd710a72badc85198f7472"
 APPID = "100005a"
 KEY = "MM_d*yP@`&1@]@!AVrXf_o-HVEnoTnm$O-ti4[G~$JDI/Dc-&piU&z&5.;:}95=Iad"
 USERAGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36" #Not used
